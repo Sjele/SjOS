@@ -1,0 +1,15 @@
+if not CConfig then 
+	assert(os.loadAPI("SjOS/APIS/CConfig"), "Could not find or load CConfig")
+end
+
+--Varriables
+
+
+--Get/SEt config stuff (CConfig = http://www.computercraft.info/forums2/index.php?/topic/9882-theoriginalbits-programs-apis-and-utilities-%E2%80%94-new-cconfig-%E2%80%93-configuration-utility-for-cc-%E2%80%94-coming-soon-remote-control-turtle/)
+local options = {}
+local conf = CConfig:new("SjOS/CONFIG/SjOS.cfg")
+conf:load()
+options.startupX = conf:getString("startupX", "NaN")
+conf:addCommentForKey("startupX", "IF you wish to make the os auto run a program at startup")
+
+conf:save()

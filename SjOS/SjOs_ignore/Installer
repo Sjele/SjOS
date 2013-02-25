@@ -1,0 +1,27 @@
+--[[SJOS installer--]]
+if not http then
+	error("This installer requres http enabled")
+end
+
+local function downloadFile( path , url)
+	if fs.exists( path ) then
+		if not fs.exists("Moved_Files") or not fs.isDir("Moved_Files") then
+			fs.makeDir("Moved_Files")
+		end
+		fs.move(path, "Moved_Files/"..path)
+	end
+	local text = http.get(url).readAll()
+	local file = assert(fs.open(path,"w"), "Could not open file in write mode(?)")
+	file.write(text)
+	file.close()
+	return true
+end
+
+
+fs.makeDir("SjOS")
+fs.makeDir("SjOS/APIS")
+fs.makeDir("SjOS/CONFIG")
+
+
+downloadFile("SjOS/Main", "https://raw.github.com/Sjele/SjOS/master/SjOS/Main")
+downloadFile("startup", "https://raw.github.com/Sjele/SjOS/master/SjOS/startup")
